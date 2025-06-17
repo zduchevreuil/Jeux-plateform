@@ -1,8 +1,8 @@
-import plateform_1 from "./plateforms/plateform_1";
-
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const body = document.querySelector('body');
+
+
 
 body.style.background = "";
 canvas.style.background = "#87CEEB";
@@ -87,30 +87,47 @@ class Platform_sol {
 
 const player = new Player(50, 50, 25, "#ff0000"); // Joueur rouge
 const platforms = [
-  plateform_1, // Sol
+  new Platform(0, 580, 800, 20),       // sol
+  new Platform(300, 450, 200, 20),
+  new Platform(150, 350, 100, 20),
+  new Platform(250, 250, 150, 20),
+  new Platform(550, 250, 150, 20),
+  new Platform(750, 150, 50, 20),
+  new Platform(580, 50, 50, 20),
+  new Platform(480, 20, 50, 20),
 ];
-platforms = plateform_1;
 
 
 // Gestion clavier
-const keys = {};
+
+  const keys = {};
+
 document.addEventListener("keydown", (e) => {
   keys[e.code] = true;
-  if (e.code === "ArrowUp" && player.onGround) {
+    if (e.code === "ArrowUp" && player.onGround) {
     player.vy = player.jumpPower;
-  }
+    }
 });
-document.addEventListener("keyup", (e) => {
+  document.addEventListener("keyup", (e) => {
   keys[e.code] = false;
 });
+
+
 
 // Boucle principale
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Gérer les touches
   player.vx = 0;
-  if (keys["ArrowLeft"]) player.vx = -player.speed;
-  if (keys["ArrowRight"]) player.vx = player.speed;
+  // if (minutes === 0) {
+    // alert('Le temps est écoulé ! Vous avez fait ' + score + 'score ! Veuillez rafraîchir la page pour recommencer.');
+  // } else {
+    if (keys["ArrowLeft"]) player.vx = -player.speed;
+    if (keys["ArrowRight"]) player.vx = player.speed;
+  // }
+    
+  
+  
 
   // Mise à jour et dessin
   player.update(platforms);
@@ -121,3 +138,15 @@ function gameLoop() {
 }
 
 gameLoop();
+
+
+// reinisialiser le joueur avec la touche R
+window.addEventListener("keydown", (event) => {
+  if (event.code === "KeyR") {
+    player.x = 50; // Réinitialiser la position du joueur
+    player.y = 50;
+    player.vx = 0;
+    player.vy = 0;
+    player.onGround = false;
+  }
+}); 

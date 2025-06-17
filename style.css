@@ -8,3 +8,15 @@
     position: relative;
     top: -600px;
 }
+
+.modial_score {
+    position: absolute;
+    top: 0;
+    left: 80%;
+}
+
+.best_score {
+    position: absolute;
+    top: 50px;
+    left: 40%;
+}
