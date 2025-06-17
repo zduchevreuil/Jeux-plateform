@@ -1,3 +1,5 @@
+import plateform_1 from "./plateforms/plateform_1";
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const body = document.querySelector('body');
@@ -85,21 +87,16 @@ class Platform_sol {
 
 const player = new Player(50, 50, 25, "#ff0000"); // Joueur rouge
 const platforms = [
-  new Platform_sol(0, 580, 800, 20),       // sol
-  new Platform(300, 450, 200, 20),
-  new Platform(150, 350, 100, 20),
-  new Platform(250, 250, 150, 20),
-  new Platform(550, 250, 150, 20),
-  new Platform(750, 150, 50, 20),
-  new Platform(580, 50, 50, 20),
-  new Platform(480, 30, 50, 20),
+  plateform_1, // Sol
 ];
+platforms = plateform_1;
+
 
 // Gestion clavier
 const keys = {};
 document.addEventListener("keydown", (e) => {
   keys[e.code] = true;
-  if (e.code === "Space" && player.onGround) {
+  if (e.code === "ArrowUp" && player.onGround) {
     player.vy = player.jumpPower;
   }
 });

@@ -1,5 +1,5 @@
 
-const plateform_1 = [
+const plateform_2 = [
   new Platform(0, 580, 800, 20),       // sol
   new Platform(300, 450, 200, 20),
   new Platform(150, 350, 100, 20),
@@ -10,4 +10,4 @@ const plateform_1 = [
   new Platform(580, 0, 50, 20),
 ];
 
-export default plateform_1; 
+export default plateform_2;
