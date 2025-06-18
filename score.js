@@ -1,6 +1,8 @@
-const score = document.querySelector('.score');
+let score = document.querySelector('.score');
 let s = 0;
+setInterval(() => {
+    score.innerHTML = s;
+}, 100);
 
-score.innerHTML = s;
 
-export default score
+export default score;

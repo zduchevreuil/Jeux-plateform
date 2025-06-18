@@ -2,8 +2,6 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const body = document.querySelector('body');
 
-
-
 body.style.background = "";
 canvas.style.background = "#87CEEB";
 class Player {
@@ -85,17 +83,51 @@ class Platform_sol {
   }
 }
 
+class platform_win_1 {
+  constructor(x, y, width, height, color = "yellow") {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+  }
+
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+class platform_win_2 {
+  constructor(x, y, width, height, color = "yellow") {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+  }
+
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
 const player = new Player(50, 50, 25, "#ff0000"); // Joueur rouge
-const platforms = [
-  new Platform(0, 580, 800, 20),       // sol
+
+let platforms = [
+  new Platform_sol(0, 580, 800, 20),       // sol
   new Platform(300, 450, 200, 20),
   new Platform(150, 350, 100, 20),
   new Platform(250, 250, 150, 20),
   new Platform(550, 250, 150, 20),
-  new Platform(750, 150, 50, 20),
-  new Platform(580, 50, 50, 20),
-  new Platform(480, 20, 50, 20),
+  new Platform(650, 200, 150, 20),
+  new Platform(550, 100, 50, 20),
+  new platform_win_1(500, 0, 150, 20),
 ];
+
+const platform_fin = platforms[7]
+// const platform_final = platform_win
 
 
 // Gestion clavier
@@ -105,8 +137,15 @@ const platforms = [
 document.addEventListener("keydown", (e) => {
   keys[e.code] = true;
     if (e.code === "ArrowUp" && player.onGround) {
-    player.vy = player.jumpPower;
+      player.vy = player.jumpPower;
     }
+    if (e.code === "ArrowUp" && player.onGround) {
+      player.color = "yellow"
+    }
+    if (e.code === "KeyE" && keys["Space"] && player.onGround) {
+      player.vy = player.jumpPower * 2;
+    }
+    // si il appuit sur la touche espace et la touche e il saute deux fois plus haut
 });
   document.addEventListener("keyup", (e) => {
   keys[e.code] = false;
@@ -119,12 +158,12 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Gérer les touches
   player.vx = 0;
-  // if (minutes === 0) {
-    // alert('Le temps est écoulé ! Vous avez fait ' + score + 'score ! Veuillez rafraîchir la page pour recommencer.');
-  // } else {
     if (keys["ArrowLeft"]) player.vx = -player.speed;
     if (keys["ArrowRight"]) player.vx = player.speed;
-  // }
+
+    // image du personnage 
+    if (keys["ArrowLeft"]) player.color = "blue";
+    if (keys["ArrowRight"]) player.color = "red";
     
   
   
@@ -150,3 +189,50 @@ window.addEventListener("keydown", (event) => {
     player.onGround = false;
   }
 }); 
+
+
+// si player touche la couleur jaune il gagne
+let score = document.querySelector('.score');
+let s = 0
+
+setInterval(() => {
+  if (player.collidesWith(platform_fin)) {
+    // alert("Vous avez gagné !");
+    // window.location.href = 'win.php';
+    s++
+    score.innerHTML = s
+    player.x = 50; // Réinitialiser la position du joueur
+    player.y = 50;
+    player.vx = 0;
+    player.vy = 0;
+    player.onGround = false;
+    platforms = [
+      new Platform_sol(0, 580, 800, 20),       // sol
+      new Platform(300, 450, 200, 20),
+      new Platform(150, 350, 100, 20),
+      new Platform(250, 250, 150, 20),
+      new Platform(550, 250, 150, 20),
+      new Platform(750, 150, 50, 20),
+      new Platform(580, 50, 50, 20),
+      new platform_win_2(500, 0, 150, 20),
+    ];
+  }
+}, 100); // Vérifie toutes les 100 ms
+
+
+// affficher la page win.php qunad il gagne
+// setInterval(() => {
+//   if (player.collidesWith(platform_fin)) {
+//     window.location.href = 'win.php';
+//     // alert("Vous avez gagné !");
+//     fetch('win.php')
+//     .then(response => response.text())
+//     .then(data => {
+//       document.getElementById('result').innerHTML = data;
+//     })
+//     .catch(error => {
+//       console.error('Erreur lors du chargement :', error);
+//     });
+
+//   }
+// }, 100); // Vérifie toutes les 100 ms

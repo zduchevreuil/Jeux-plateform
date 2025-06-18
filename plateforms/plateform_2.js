@@ -28,7 +28,6 @@ class Platform_sol {
   }
 }
 
-const player = new Player(50, 50, 25, "#ff0000"); // Joueur rouge
 const plateform_2 = [
   new Platform(0, 580, 800, 20),       // sol
   new Platform(300, 450, 200, 20),
@@ -37,7 +36,7 @@ const plateform_2 = [
   new Platform(550, 250, 150, 20),
   new Platform(750, 150, 50, 20),
   new Platform(580, 50, 50, 20),
-  new Platform(480, 20, 50, 20),
+  new Platform_finish(380, 20, 150, 20),
 ];
 
 export { Platform, Platform_sol, plateform_2 };
